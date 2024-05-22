@@ -29,13 +29,13 @@ const Timer = ({ currentState }: Props) => {
 
   return (
     <div className="grid grid-flow-col gap-5 text-center auto-cols-max">
-      <div className="flex flex-col p-2 bg-gray-300 dark:bg-gray-800 rounded-box text-neutral-content">
+      <div className="flex flex-col p-2 bg-gray-400 dark:bg-gray-800 rounded-box ">
         <span className="countdown font-mono text-5xl">
           <span style={{ "--value": minutes } as React.CSSProperties}></span>
         </span>
         min
       </div>
-      <div className="flex flex-col p-2 bg-gray-300 dark:bg-gray-800 rounded-box text-neutral-content">
+      <div className="flex flex-col p-2 bg-gray-400 dark:bg-gray-800 rounded-box ">
         <span className="countdown font-mono text-5xl">
           <span style={{ "--value": seconds } as React.CSSProperties}></span>
         </span>

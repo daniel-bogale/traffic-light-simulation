@@ -1,28 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import TrafficIntersection from "./trafficIntersection";
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import History from "./History";
+import History, { TableData } from "./History";
 
 const Hero = () => {
+  const [history, setHistory] = useState<TableData[]>([]);
+  const addHistoryHandler = (value: TableData) => {
+    console.log(value);
+
+    setHistory((prev) => {
+      let newArr = [...prev];
+      newArr.unshift({ ...value });
+      return newArr;
+    });
+  };
   return (
-    <div className="mt-20 lg:mt-2 p-8 w-full">
+    <div className="mt-20 lg:mt-0 p-8 w-full ">
       <ResizablePanelGroup
         direction="horizontal"
-        className="min-h-[200px] rounded-lg border"
+        className="rounded-lg border "
       >
         <ResizablePanel defaultSize={75}>
           <div className="flex flex-col h-full items-center justify-center ">
-            <TrafficIntersection />
+            <TrafficIntersection addHistory={addHistoryHandler} />
           </div>
         </ResizablePanel>
         <ResizableHandle withHandle />
         <ResizablePanel defaultSize={25} maxSize={30}>
-          <div className="flex flex-col py-10 px-2 h-full">
-            <History />
+          <div className="flex flex-col p-2 h-full">
+            <History data={history} resetHistory={() => setHistory([])} />
           </div>
         </ResizablePanel>
       </ResizablePanelGroup>

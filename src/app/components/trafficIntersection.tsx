@@ -3,18 +3,21 @@ import { useState } from "react";
 import { TrafficLight } from "./trafficLight";
 import Timer from "./timer";
 
-const TrafficIntersection = () => {
+interface Props {
+  addHistory: (value: any) => void;
+}
+const TrafficIntersection = ({ addHistory }: Props) => {
   const [northSelected, setNorthSelected] = useState<"go" | "slow" | "stop">(
-    "stop"
+    "go"
   );
   const [eastSelected, setEastSelected] = useState<"go" | "slow" | "stop">(
     "stop"
   );
-  const [southSelected, setSouthSelected] = useState<"go" | "slow" | "stop">(
-    "stop"
-  );
   const [westSelected, setWestSelected] = useState<"go" | "slow" | "stop">(
     "stop"
+  );
+  const [southSelected, setSouthSelected] = useState<"go" | "slow" | "stop">(
+    "go"
   );
 
   return (
@@ -24,6 +27,8 @@ const TrafficIntersection = () => {
           selected={northSelected}
           setSelected={setNorthSelected}
           horizontal={true}
+          addHistory={addHistory}
+          position="north"
         />
         <div className="mt-[-5rem]">
           <Timer currentState={northSelected} />
@@ -32,12 +37,22 @@ const TrafficIntersection = () => {
       <div className="col-start-1 row-start-2">
         <div className="flex justify-center items-center gap-4">
           <Timer currentState={westSelected} />
-          <TrafficLight selected={westSelected} setSelected={setWestSelected} />
+          <TrafficLight
+            selected={westSelected}
+            setSelected={setWestSelected}
+            addHistory={addHistory}
+            position="west"
+          />
         </div>
       </div>
       <div className="col-start-5 row-start-2">
         <div className="flex justify-center items-center gap-4">
-          <TrafficLight selected={eastSelected} setSelected={setEastSelected} />
+          <TrafficLight
+            selected={eastSelected}
+            setSelected={setEastSelected}
+            addHistory={addHistory}
+            position="east"
+          />
           <Timer currentState={eastSelected} />
         </div>
       </div>
@@ -50,6 +65,8 @@ const TrafficIntersection = () => {
             selected={southSelected}
             setSelected={setSouthSelected}
             horizontal={true}
+            addHistory={addHistory}
+            position="south"
           />
         </div>
       </div>
