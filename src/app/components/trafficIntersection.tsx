@@ -4,10 +4,18 @@ import { TrafficLight } from "./trafficLight";
 import Timer from "./timer";
 
 const TrafficIntersection = () => {
-  const [northSelected, setNorthSelected] = useState("stop");
-  const [eastSelected, setEastSelected] = useState("stop");
-  const [southSelected, setSouthSelected] = useState("stop");
-  const [westSelected, setWestSelected] = useState("stop");
+  const [northSelected, setNorthSelected] = useState<"go" | "slow" | "stop">(
+    "stop"
+  );
+  const [eastSelected, setEastSelected] = useState<"go" | "slow" | "stop">(
+    "stop"
+  );
+  const [southSelected, setSouthSelected] = useState<"go" | "slow" | "stop">(
+    "stop"
+  );
+  const [westSelected, setWestSelected] = useState<"go" | "slow" | "stop">(
+    "stop"
+  );
 
   return (
     <div className="grid grid-cols-5 grid-rows-3 gap-2 max-w-3xl">
@@ -18,25 +26,25 @@ const TrafficIntersection = () => {
           horizontal={true}
         />
         <div className="mt-[-5rem]">
-          <Timer />
+          <Timer currentState={northSelected} />
         </div>
       </div>
       <div className="col-start-1 row-start-2">
         <div className="flex justify-center items-center gap-4">
-          <Timer />
+          <Timer currentState={westSelected} />
           <TrafficLight selected={westSelected} setSelected={setWestSelected} />
         </div>
       </div>
       <div className="col-start-5 row-start-2">
         <div className="flex justify-center items-center gap-4">
           <TrafficLight selected={eastSelected} setSelected={setEastSelected} />
-          <Timer />
+          <Timer currentState={eastSelected} />
         </div>
       </div>
       <div className="col-start-3 row-start-3">
         <div className="col-start-3 flex flex-col justify-start items-center">
           <div className="mb-[-5rem]">
-            <Timer />
+            <Timer currentState={southSelected} />
           </div>
           <TrafficLight
             selected={southSelected}

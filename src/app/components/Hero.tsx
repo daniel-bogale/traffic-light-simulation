@@ -5,9 +5,9 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import { History } from "./history";
+import History from "./History";
 
-const FourWayRoad = () => {
+const Hero = () => {
   return (
     <div className="mt-20 lg:mt-2 p-8 w-full">
       <ResizablePanelGroup
@@ -29,5 +29,4 @@ const FourWayRoad = () => {
     </div>
   );
 };
-
-export default FourWayRoad;
+export default Hero;

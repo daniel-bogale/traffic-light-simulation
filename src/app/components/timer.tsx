@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-const Timer = () => {
+interface Props {
+  currentState: "go" | "slow" | "stop";
+}
+const Timer = ({ currentState }: Props) => {
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
 
@@ -19,17 +22,22 @@ const Timer = () => {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    setMinutes(0);
+    setSeconds(0);
+  }, [currentState]);
+
   return (
-    <div className="grid grid-flow-col gap-5 text-center auto-cols-max ">
-      <div className="flex flex-col p-2 bg-gray-800 rounded-box text-neutral-content">
+    <div className="grid grid-flow-col gap-5 text-center auto-cols-max">
+      <div className="flex flex-col p-2 bg-gray-300 dark:bg-gray-800 rounded-box text-neutral-content">
         <span className="countdown font-mono text-5xl">
-          <span>{minutes < 10 ? `0${minutes}` : minutes}</span>
+          <span style={{ "--value": minutes } as React.CSSProperties}></span>
         </span>
         min
       </div>
-      <div className="flex flex-col p-2 bg-gray-800 rounded-box text-neutral-content">
+      <div className="flex flex-col p-2 bg-gray-300 dark:bg-gray-800 rounded-box text-neutral-content">
         <span className="countdown font-mono text-5xl">
-          <span>{seconds < 10 ? `0${seconds}` : seconds}</span>
+          <span style={{ "--value": seconds } as React.CSSProperties}></span>
         </span>
         sec
       </div>

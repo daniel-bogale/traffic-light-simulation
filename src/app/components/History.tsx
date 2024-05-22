@@ -11,7 +11,7 @@ import {
 
 type Props = {};
 
-export const History = (props: Props) => {
+const History = (props: Props) => {
   const dummyHistory = [
     {
       id: 1,
@@ -56,6 +56,7 @@ export const History = (props: Props) => {
           <TableRow>
             <TableHead>No</TableHead>
             <TableHead>Time</TableHead>
+            <TableHead>Side</TableHead>
             <TableHead className="text-right">Action</TableHead>
           </TableRow>
         </TableHeader>
@@ -65,6 +66,8 @@ export const History = (props: Props) => {
             <TableRow key={item.id}>
               <TableCell>{item.id}</TableCell>
               <TableCell>{item.time}</TableCell>
+              <TableCell>{item.side}</TableCell>
+
               <TableCell className="text-right">{item.action}</TableCell>
             </TableRow>
           ))}
@@ -72,7 +75,7 @@ export const History = (props: Props) => {
         <TableFooter>
           <TableRow>
             <TableCell>Total</TableCell>
-            <TableCell colSpan={2} className="text-right">
+            <TableCell colSpan={3} className="text-right">
               2,500.00 records
             </TableCell>
           </TableRow>
@@ -81,3 +84,5 @@ export const History = (props: Props) => {
     </div>
   );
 };
+
+export default History;
