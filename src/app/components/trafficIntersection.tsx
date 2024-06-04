@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TrafficLight } from "./trafficLight";
 import Timer from "./timer";
 
@@ -21,7 +21,7 @@ const TrafficIntersection = ({ addHistory }: Props) => {
   );
 
   return (
-    <div className="grid grid-cols-5 grid-rows-3 gap-2 max-w-3xl">
+    <div className="ml-96 grid grid-cols-5 grid-rows-3 gap-2 max-w-3xl ">
       <div className="col-start-3 flex flex-col justify-start items-center">
         <TrafficLight
           selected={northSelected}

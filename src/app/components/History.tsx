@@ -26,7 +26,7 @@ interface Props {
 const History = ({ data, resetHistory }: Props) => {
   console.log(data);
   return (
-    <div className="w-full flex flex-col items-center h-full">
+    <div className="w-full flex flex-col items-center h-full p-2">
       <div className="flex justify-between w-full items-center gap-3 px-6">
         <p className="font-semibold">History</p>
         <Button variant="ghost" size="icon" onClick={resetHistory}>
@@ -34,7 +34,7 @@ const History = ({ data, resetHistory }: Props) => {
         </Button>
       </div>
       <hr className="border-gray-300 dark:border-neutral-800 w-full mb-6 mt-2" />
-      <ScrollArea className="h-[46rem]  rounded-md border py-2 px-1">
+      <ScrollArea className="h-[46rem] w-full rounded-md border py-2 px-1">
         <Table>
           <TableCaption>A list of your recent changes</TableCaption>
           <TableHeader>

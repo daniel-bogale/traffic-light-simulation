@@ -25,12 +25,12 @@ const Hero = () => {
         className="rounded-lg border "
       >
         <ResizablePanel defaultSize={75}>
-          <div className="flex flex-col h-full items-center justify-center ">
+          <div className="bg-[url('/images/roadImage.png')]">
             <TrafficIntersection addHistory={addHistoryHandler} />
           </div>
         </ResizablePanel>
         <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={25} maxSize={30}>
+        <ResizablePanel defaultSize={25} maxSize={25}>
           <div className="flex flex-col p-2 h-full">
             <History data={history} resetHistory={() => setHistory([])} />
           </div>
