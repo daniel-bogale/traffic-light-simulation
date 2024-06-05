@@ -1,23 +1,9 @@
 import React, { useState, useEffect } from "react";
 
 interface Props {
-  currentState: "go" | "slow" | "stop";
+  seconds: number;
 }
-const Timer = ({ currentState }: Props) => {
-  // const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setSeconds((prevSeconds) => prevSeconds + 1);
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  useEffect(() => {
-    setSeconds(0);
-  }, [currentState]);
+const Timer = ({ seconds }: Props) => {
 
   return (
     <div className="grid grid-flow-col gap-5 text-center auto-cols-max">

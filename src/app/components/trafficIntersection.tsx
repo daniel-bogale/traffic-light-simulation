@@ -6,40 +6,70 @@ import Timer from "./timer";
 interface Props {
   addHistory: (value: any) => void;
 }
+type State = "go" | "slow" | "stop"
 const TrafficIntersection = ({ addHistory }: Props) => {
-  const [northSelected, setNorthSelected] = useState<"go" | "slow" | "stop">(
-    "go"
-  );
-  const [eastSelected, setEastSelected] = useState<"go" | "slow" | "stop">(
-    "stop"
-  );
-  const [westSelected, setWestSelected] = useState<"go" | "slow" | "stop">(
-    "stop"
-  );
-  const [southSelected, setSouthSelected] = useState<"go" | "slow" | "stop">(
-    "go"
-  );
+  const [selectedState, setSelectedState] = useState<State[]>([
+    "go",
+    "go",
+    "go",
+    "go",
+  ]);
+
+  //for north,east,west,south
+  const [seconds, setSeconds] = useState([0, 0, 0, 0]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSeconds((prevSeconds) => {
+        return prevSeconds.map((val) => val + 1)
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const setState = (idx: number, state: State) => {
+    setSelectedState((prev) => {
+      return prev.map((val, i) => {
+        if (idx === i) return state
+        return val
+      })
+    })
+    setSeconds((prev) => {
+      return prev.map((val, i) => {
+        if (idx === i) return 0
+        return val
+      })
+    })
+
+  }
+  console.log(seconds)
+
+
+
 
   return (
     <div className="ml-96 grid grid-cols-5 grid-rows-3 gap-2 max-w-3xl ">
       <div className="col-start-3 flex flex-col justify-start items-center">
         <TrafficLight
-          selected={northSelected}
-          setSelected={setNorthSelected}
+          selected={selectedState[0]}
+          setSelected={(state) => setState(0, state)}
           horizontal={true}
           addHistory={addHistory}
           position="north"
         />
         <div className="mt-[-5rem]">
-          <Timer currentState={northSelected} />
+          <Timer seconds={seconds[0]}
+          />
         </div>
       </div>
       <div className="col-start-1 row-start-2">
         <div className="flex justify-center items-center gap-4">
-          <Timer currentState={westSelected} />
+          <Timer seconds={seconds[1]}
+          />
           <TrafficLight
-            selected={westSelected}
-            setSelected={setWestSelected}
+            selected={selectedState[1]}
+            setSelected={(state) => setState(1, state)}
             addHistory={addHistory}
             position="west"
           />
@@ -48,22 +78,24 @@ const TrafficIntersection = ({ addHistory }: Props) => {
       <div className="col-start-5 row-start-2">
         <div className="flex justify-center items-center gap-4">
           <TrafficLight
-            selected={eastSelected}
-            setSelected={setEastSelected}
+            selected={selectedState[2]}
+            setSelected={(state) => setState(2, state)}
             addHistory={addHistory}
             position="east"
           />
-          <Timer currentState={eastSelected} />
+          <Timer seconds={seconds[2]}
+          />
         </div>
       </div>
       <div className="col-start-3 row-start-3">
         <div className="col-start-3 flex flex-col justify-start items-center">
           <div className="mb-[-5rem]">
-            <Timer currentState={southSelected} />
+            <Timer seconds={seconds[3]}
+            />
           </div>
           <TrafficLight
-            selected={southSelected}
-            setSelected={setSouthSelected}
+            selected={selectedState[3]}
+            setSelected={(state) => setState(3, state)}
             horizontal={true}
             addHistory={addHistory}
             position="south"
