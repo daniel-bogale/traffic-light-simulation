@@ -6,16 +6,17 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import History, { TableData } from "./History";
+import { SocketState, State } from "../page";
+interface Props {
+  socketState: SocketState | null;
+  currentState: State[];
+  seconds: number[];
+  history: TableData[];
+  resetHistory: () => void
+}
 
-const Hero = () => {
-  const [history, setHistory] = useState<TableData[]>([]);
-  const addHistoryHandler = (value: TableData) => {
-    setHistory((prev) => {
-      let newArr = [...prev];
-      newArr.unshift({ ...value });
-      return newArr;
-    });
-  };
+const Hero = ({ currentState, resetHistory, socketState, seconds, history }: Props) => {
+
   return (
     <div className="mt-20 lg:mt-0 p-8 w-full ">
       <ResizablePanelGroup
@@ -24,13 +25,17 @@ const Hero = () => {
       >
         <ResizablePanel defaultSize={75}>
           <div className="bg-[url('/images/roadImage.png')]">
-            <TrafficIntersection addHistory={addHistoryHandler} />
+            {socketState && <TrafficIntersection currentState={currentState} seconds={seconds} />}
+            {!socketState && <div className="w-full h-full min-h-[90vh] flex items-center justify-center">
+              <span className="loading loading-spinner loading-lg"></span>
+
+            </div>}
           </div>
         </ResizablePanel>
         <ResizableHandle withHandle />
         <ResizablePanel defaultSize={25} maxSize={25}>
           <div className="flex flex-col p-2 h-full">
-            <History data={history} resetHistory={() => setHistory([])} />
+            <History data={history} resetHistory={resetHistory} />
           </div>
         </ResizablePanel>
       </ResizablePanelGroup>

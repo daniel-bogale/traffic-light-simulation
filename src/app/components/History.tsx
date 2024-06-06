@@ -12,10 +12,12 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { CookingPot, Moon, Sun } from "lucide-react";
 
+export type Position = "south" | "north" | "east" | "west";
+export const POSITION: Position[] = ["south", "north", "east", "west"];
 export type TableData = {
-  id: number;
+  id: string;
   time: string;
-  position: "south" | "north" | "east" | "west";
+  position: Position;
   action: string;
 };
 interface Props {
