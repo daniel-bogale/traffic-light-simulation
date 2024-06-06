@@ -24,7 +24,6 @@ interface Props {
 }
 
 const History = ({ data, resetHistory }: Props) => {
-  console.log(data);
   return (
     <div className="w-full flex flex-col items-center h-full p-2">
       <div className="flex justify-between w-full items-center gap-3 px-6">

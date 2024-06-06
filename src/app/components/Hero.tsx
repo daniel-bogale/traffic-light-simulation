@@ -10,8 +10,6 @@ import History, { TableData } from "./History";
 const Hero = () => {
   const [history, setHistory] = useState<TableData[]>([]);
   const addHistoryHandler = (value: TableData) => {
-    console.log(value);
-
     setHistory((prev) => {
       let newArr = [...prev];
       newArr.unshift({ ...value });
