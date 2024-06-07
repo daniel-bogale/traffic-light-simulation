@@ -31,12 +31,32 @@ export default function Home() {
   useEffect(() => {
     const timer = setInterval(() => {
       setSeconds((prevSeconds) => {
-        return prevSeconds.map((val) => val + 1)
+        return prevSeconds.map((val, idx) => {
+          console.log("current second", ...prevSeconds)
+          console.log("current state", ...currentState)
+
+
+          if (val === 1 && currentState[idx] === "slow") {
+            console.log("here")
+            //   addHistoryHandler({
+            //     id: history.length + 1,
+            //     time: new Date().toLocaleTimeString(),
+            //     position: POSITION[idx],
+            //     action: "stop",
+            //   });
+            setCurrentState((prev) => prev.map((val, i) => {
+              if (i === idx) return "stop"
+              return val
+            }))
+            return 0
+          }
+          return val + 1
+        })
       });
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [...currentState]);
 
   useEffect(() => {
     fetch('api/socket');
@@ -46,14 +66,8 @@ export default function Home() {
     socket.on('updateData', (data: SocketState) => {
       setSocket_state(data);
       setCurrentState((prev) => {
-        return prev.map((val, idx) => {
+        return prev.map((_, idx) => {
           if (idx === data.turn) {
-            // addHistoryHandler({
-            //   id: new Date().toLocaleTimeString(),
-            //   time: new Date().toLocaleTimeString(),
-            //   position: POSITION[0],
-            //   action: "go",
-            // });
             return "go"
           }
           if (idx === (data.turn + 3) % 4) return "slow"
@@ -62,6 +76,43 @@ export default function Home() {
       })
     });
   }
+  useEffect(() => {
+    const goIndex = currentState.findIndex((val) => val === "go")
+    const slowIndex = currentState.findIndex((val) => val === "slow")
+    // const stopIndex = currentState.findIndex((val) => val === "stop")
+
+
+    if (goIndex >= 0 && slowIndex >= 0) {
+      addHistoryHandler({
+        id: history.length + 1,
+        time: new Date().toLocaleTimeString(),
+        position: POSITION[goIndex],
+        action: "go",
+      });
+      // addHistoryHandler({
+      //   id: history.length + 2,
+      //   time: new Date().toLocaleTimeString(),
+      //   position: POSITION[slowIndex],
+      //   action: "slow",
+      // });
+
+      setSeconds((prevSeconds) => {
+        return prevSeconds.map((val, idx) => {
+          if (idx === goIndex || idx === slowIndex) return 0
+          return val
+        })
+      });
+    }
+    // if (stopIndex >= 0) {
+    //   addHistoryHandler({
+    //     id: history.length + 1,
+    //     time: new Date().toLocaleTimeString(),
+    //     position: POSITION[stopIndex],
+    //     action: "stop",
+    //   });
+    // }
+
+  }, [...currentState])
 
   const addHistoryHandler = (value: TableData) => {
     setHistory((prev) => {

@@ -34,20 +34,20 @@ const TrafficIntersection = ({ currentState, seconds }: Props) => {
       <div className="col-start-5 row-start-2">
         <div className="flex justify-center items-center gap-4">
           <TrafficLight
-            selected={currentState[2]}
+            selected={currentState[3]}
           />
-          <Timer seconds={seconds[2]}
+          <Timer seconds={seconds[3]}
           />
         </div>
       </div>
       <div className="col-start-3 row-start-3">
         <div className="col-start-3 flex flex-col justify-start items-center">
           <div className="mb-[-5rem]">
-            <Timer seconds={seconds[3]}
+            <Timer seconds={seconds[2]}
             />
           </div>
           <TrafficLight
-            selected={currentState[3]}
+            selected={currentState[2]}
             horizontal={true}
           />
         </div>

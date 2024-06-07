@@ -13,9 +13,9 @@ import { Button } from "@/components/ui/button";
 import { CookingPot, Moon, Sun } from "lucide-react";
 
 export type Position = "south" | "north" | "east" | "west";
-export const POSITION: Position[] = ["south", "north", "east", "west"];
+export const POSITION: Position[] = ["north", "west", "south", "east"];
 export type TableData = {
-  id: string;
+  id: number;
   time: string;
   position: Position;
   action: string;
