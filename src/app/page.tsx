@@ -32,18 +32,7 @@ export default function Home() {
     const timer = setInterval(() => {
       setSeconds((prevSeconds) => {
         return prevSeconds.map((val, idx) => {
-          console.log("current second", ...prevSeconds)
-          console.log("current state", ...currentState)
-
-
           if (val === 1 && currentState[idx] === "slow") {
-            console.log("here")
-            //   addHistoryHandler({
-            //     id: history.length + 1,
-            //     time: new Date().toLocaleTimeString(),
-            //     position: POSITION[idx],
-            //     action: "stop",
-            //   });
             setCurrentState((prev) => prev.map((val, i) => {
               if (i === idx) return "stop"
               return val
@@ -80,7 +69,6 @@ export default function Home() {
     const goIndex = currentState.findIndex((val) => val === "go")
     const slowIndex = currentState.findIndex((val) => val === "slow")
     // const stopIndex = currentState.findIndex((val) => val === "stop")
-
 
     if (goIndex >= 0 && slowIndex >= 0) {
       addHistoryHandler({
