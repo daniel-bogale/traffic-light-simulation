@@ -25,7 +25,7 @@ const Hero = ({ currentState, resetHistory, socketState, seconds, history }: Pro
       >
         <ResizablePanel defaultSize={75}>
           <div className="bg-[url('/images/roadImage.png')]">
-            {socketState && <TrafficIntersection currentState={currentState} seconds={seconds} />}
+            {socketState && <TrafficIntersection currentState={currentState} seconds={seconds} socketState={socketState} />}
             {!socketState && <div className="w-full h-full min-h-[90vh] flex items-center justify-center">
               <span className="loading loading-spinner loading-lg"></span>
 

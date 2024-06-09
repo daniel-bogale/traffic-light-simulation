@@ -68,7 +68,6 @@ export default function Home() {
   useEffect(() => {
     const goIndex = currentState.findIndex((val) => val === "go")
     const slowIndex = currentState.findIndex((val) => val === "slow")
-    // const stopIndex = currentState.findIndex((val) => val === "stop")
 
     if (goIndex >= 0 && slowIndex >= 0) {
       addHistoryHandler({
@@ -77,12 +76,7 @@ export default function Home() {
         position: POSITION[goIndex],
         action: "go",
       });
-      // addHistoryHandler({
-      //   id: history.length + 2,
-      //   time: new Date().toLocaleTimeString(),
-      //   position: POSITION[slowIndex],
-      //   action: "slow",
-      // });
+
 
       setSeconds((prevSeconds) => {
         return prevSeconds.map((val, idx) => {
@@ -91,14 +85,7 @@ export default function Home() {
         })
       });
     }
-    // if (stopIndex >= 0) {
-    //   addHistoryHandler({
-    //     id: history.length + 1,
-    //     time: new Date().toLocaleTimeString(),
-    //     position: POSITION[stopIndex],
-    //     action: "stop",
-    //   });
-    // }
+
 
   }, [...currentState])
 
@@ -109,7 +96,6 @@ export default function Home() {
       return newArr;
     });
   };
-
 
 
 

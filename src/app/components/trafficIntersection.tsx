@@ -7,12 +7,19 @@ import { SocketState, State } from "../page";
 interface Props {
   currentState: State[];
   seconds: number[];
-}
-const TrafficIntersection = ({ currentState, seconds }: Props) => {
+  socketState: SocketState;
 
+}
+const TrafficIntersection = ({ currentState, seconds, socketState }: Props) => {
+  console.log("socketState", socketState)
   return (
     <div className="ml-96 grid grid-cols-5 grid-rows-3 gap-2 max-w-3xl ">
       <div className="col-start-3 flex flex-col justify-start items-center">
+
+        <div className="flex flex-col p-2 px-4 bg-gray-400/65 dark:bg-gray-800/65 rounded-2xl backdrop-blur-sm mb-[-5rem] mt-1">
+          <span className="countdown font-mono text-4xl">{socketState?.cars[0]}
+          </span>
+        </div>
         <TrafficLight
           selected={currentState[0]}
           horizontal={true}
@@ -24,6 +31,10 @@ const TrafficIntersection = ({ currentState, seconds }: Props) => {
       </div>
       <div className="col-start-1 row-start-2">
         <div className="flex justify-center items-center gap-4">
+          <div className="flex flex-col p-2 px-4 bg-gray-400/65 dark:bg-gray-800/65 rounded-2xl backdrop-blur-sm">
+            <span className="countdown font-mono text-4xl">{socketState?.cars[1]}
+            </span>
+          </div>
           <Timer seconds={seconds[1]}
           />
           <TrafficLight
@@ -38,6 +49,11 @@ const TrafficIntersection = ({ currentState, seconds }: Props) => {
           />
           <Timer seconds={seconds[3]}
           />
+          <div className="flex flex-col p-2 px-4 bg-gray-400/65 dark:bg-gray-800/65 rounded-2xl backdrop-blur-sm">
+            <span className="countdown font-mono text-4xl">{socketState?.cars[3]}
+            </span>
+          </div>
+
         </div>
       </div>
       <div className="col-start-3 row-start-3">
@@ -50,6 +66,10 @@ const TrafficIntersection = ({ currentState, seconds }: Props) => {
             selected={currentState[2]}
             horizontal={true}
           />
+          <div className="flex flex-col p-2 bg-gray-400/65 dark:bg-gray-800/65 rounded-2xl backdrop-blur-sm mt-[-5rem]">
+            <span className="countdown font-mono text-4xl">{socketState?.cars[2]}
+            </span>
+          </div>
         </div>
       </div>
     </div>
